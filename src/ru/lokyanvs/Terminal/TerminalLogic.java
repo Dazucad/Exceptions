@@ -2,16 +2,21 @@ package ru.lokyanvs.Terminal;
 
 import ru.lokyanvs.Client;
 import ru.lokyanvs.Exceptions.*;
-import ru.lokyanvs.Interfaces.MenuConstants;
 import ru.lokyanvs.PinValidator;
 import ru.lokyanvs.TerminalServer;
 
-public class TerminalLogic implements MenuConstants {
+public class TerminalLogic {
 
     private TerminalUI terminalUI;
 
+    private static final int PIN = 1;
+    private static final int WITHDRAW = 2;
+    private static final int DEPOSIT = 3;
+    private static final int BALANCE = 4;
+    private static final int END = 5;
+
     public TerminalLogic() {
-        terminalUI=new TerminalUI();
+        terminalUI = new TerminalUI();
         runTerminal();
     }
 
@@ -36,7 +41,7 @@ public class TerminalLogic implements MenuConstants {
                     case PIN: {
                         try {
                             pinChecked = pinValidator.checkPin(client, terminalUI.askPin());
-                        } catch (AccountIsLockedException|IncorrectPin e) {
+                        } catch (AccountIsLockedException | IncorrectPin e) {
                             terminalUI.showExceptionInfo(e);
                         }
                         break;
@@ -45,7 +50,7 @@ public class TerminalLogic implements MenuConstants {
                         if (pinChecked) {
                             try {
                                 terminalServer.withdrawMoney(client, terminalUI.withdraw());
-                            } catch (InsufficientFundsException|IncorrectAmountException e) {
+                            } catch (InsufficientFundsException | IncorrectAmountException e) {
                                 terminalUI.showExceptionInfo(e);
                             }
                         } else terminalUI.showExceptionInfo(new PinNotChecked());
@@ -62,7 +67,7 @@ public class TerminalLogic implements MenuConstants {
                         } else terminalUI.showExceptionInfo(new PinNotChecked());
                     }
                 }
-            } while (command!=END);
+            } while (command != END);
         }
     }
 }

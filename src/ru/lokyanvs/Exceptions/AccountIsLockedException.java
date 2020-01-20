@@ -3,7 +3,7 @@ package ru.lokyanvs.Exceptions;
 public class AccountIsLockedException extends Exception{
 
     public AccountIsLockedException (){
-        super("Некорректный пин");
+        super("Вы некорректный пин-код 3 раза, доступ заблокирован");
     }
 
     @Override

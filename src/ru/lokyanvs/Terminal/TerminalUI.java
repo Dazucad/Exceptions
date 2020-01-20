@@ -29,8 +29,8 @@ public class TerminalUI implements Terminal {
     @Override
     public int withdraw() {
         System.out.println("Введите сумму для снятия:");
-        int sum = 0;
-        while (sum == 0) {
+        int sum = -1;
+        while (sum < 0) {
             try {
                 sum = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
